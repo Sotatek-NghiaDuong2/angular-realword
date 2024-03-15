@@ -17,18 +17,25 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormPostComponent],
   template: `
-    @switch (postDetailsQuery.status()) { @case ('pending') { Loading... } @case
-    ('error') { Fail to load } @case ('success') {
-    <app-form-post
-      [defaultValues]="{
-        title: postDetailsQuery.data()?.title ?? '',
-        content: postDetailsQuery.data()?.content
-      }"
-      (submit)="handleSubmit($event)"
-      buttonSubmitLabel="Update"
-      [status]="getStatusValue()"
-    ></app-form-post>
-    } }
+    @switch (postDetailsQuery.status()) {
+      @case ('pending') {
+        Loading...
+      }
+      @case ('error') {
+        Fail to load
+      }
+      @case ('success') {
+        <app-form-post
+          [defaultValues]="{
+            title: postDetailsQuery.data()?.title ?? '',
+            content: postDetailsQuery.data()?.content
+          }"
+          (submit)="handleSubmit($event)"
+          buttonSubmitLabel="Update"
+          [status]="getStatusValue()"
+        ></app-form-post>
+      }
+    }
   `,
   styles: ``,
 })

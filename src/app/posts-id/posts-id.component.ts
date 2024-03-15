@@ -8,11 +8,18 @@ import { PostService } from '../../shared/services/post.service';
   standalone: true,
   imports: [],
   template: `
-    @switch (postDetailsQuery.status()) { @case ('pending') { Loading... }
-    @case('error') { Fail to load } @case('success'){
-    <h3>{{ postDetailsQuery.data()?.title }}</h3>
-    <p>{{ postDetailsQuery.data()?.content }}</p>
-    } }
+    @switch (postDetailsQuery.status()) {
+      @case ('pending') {
+        Loading...
+      }
+      @case ('error') {
+        Fail to load
+      }
+      @case ('success') {
+        <h3>{{ postDetailsQuery.data()?.title }}</h3>
+        <p>{{ postDetailsQuery.data()?.content }}</p>
+      }
+    }
   `,
   styles: ``,
 })

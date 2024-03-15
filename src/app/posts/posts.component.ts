@@ -19,17 +19,26 @@ import { RouterLink } from '@angular/router';
     <a routerLink="/posts/new">New Post</a>
     <input type="text" placeholder="Search..." [(ngModel)]="keyword" />
     <div>
-      @switch (postsQuery.status()) { @case ('pending') { Loading... } @case
-      ('error') { Fail to load } @case ('success') {
-      <ul>
-        @for (post of postsQuery.data(); track post.id) {
-        <app-post-list-item
-          [post]="post"
-          (delete)="handleDeletePost($event)"
-        ></app-post-list-item>
-        } @empty { No Post }
-      </ul>
-      } }
+      @switch (postsQuery.status()) {
+        @case ('pending') {
+          Loading...
+        }
+        @case ('error') {
+          Fail to load
+        }
+        @case ('success') {
+          <ul>
+            @for (post of postsQuery.data(); track post.id) {
+              <app-post-list-item
+                [post]="post"
+                (delete)="handleDeletePost($event)"
+              ></app-post-list-item>
+            } @empty {
+              No Post
+            }
+          </ul>
+        }
+      }
     </div>
   `,
   styles: ``,
@@ -44,7 +53,9 @@ export class PostsComponent {
     queryFn: (context) => {
       const abort$ = fromEvent(context.signal, 'abort');
       return lastValueFrom(
-        this.postService.getPosts({ q: this.keyword() }).pipe(takeUntil(abort$))
+        this.postService
+          .getPosts({ q: this.keyword() })
+          .pipe(takeUntil(abort$)),
       );
     },
   });
@@ -60,7 +71,7 @@ export class PostsComponent {
         client.getQueryData(this.postsQueryOptions.queryKey) ?? [];
 
       const clonePreviousPosts: Post[] = JSON.parse(
-        JSON.stringify(previousPosts)
+        JSON.stringify(previousPosts),
       );
 
       if (clonePreviousPosts) {
@@ -71,7 +82,7 @@ export class PostsComponent {
               post.isDeleting = true;
             }
             return post;
-          })
+          }),
         );
       }
 
@@ -81,7 +92,7 @@ export class PostsComponent {
       postId,
       error,
       variables: number,
-      context?: { previousPosts: Post[] | undefined }
+      context?: { previousPosts: Post[] | undefined },
     ) => {
       if (!error) {
         client.invalidateQueries({ queryKey: this.postsQueryOptions.queryKey });
@@ -91,7 +102,7 @@ export class PostsComponent {
       if (context?.previousPosts) {
         client.setQueryData(
           this.postsQueryOptions.queryKey,
-          context.previousPosts
+          context.previousPosts,
         );
       }
     },

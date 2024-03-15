@@ -14,4 +14,6 @@ import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimen
     <angular-query-devtools initialIsOpen />
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  title: string = 'angular-realworld';
+}

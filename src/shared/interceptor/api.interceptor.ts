@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 export class ApiInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     const apiReq = req.clone({
       url: `${environment.apiUrl}/${req.url}`,

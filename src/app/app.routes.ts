@@ -15,14 +15,14 @@ export const routes: Routes = [
     path: 'posts/new',
     loadComponent: () =>
       import('./posts-new/posts-new.component').then(
-        (c) => c.PostsNewComponent
+        (c) => c.PostsNewComponent,
       ),
   },
   {
     path: 'posts/edit',
     loadComponent: () =>
       import('./posts-edit/posts-edit.component').then(
-        (c) => c.PostsEditComponent
+        (c) => c.PostsEditComponent,
       ),
   },
   {

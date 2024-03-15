@@ -24,9 +24,9 @@ import { DataCreatePost } from '../../../../shared/services/post.service';
       </button>
     </form>
     @if (status) {
-    <span>
-      {{ status }}
-    </span>
+      <span>
+        {{ status }}
+      </span>
     }
   `,
   styles: ``,
