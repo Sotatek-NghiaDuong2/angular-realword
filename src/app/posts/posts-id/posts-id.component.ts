@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
-import { PostService } from '../../shared/services/post.service';
+import { PostService } from '../../../shared/services/post.service';
 
 @Component({
   selector: 'app-posts-id',
@@ -25,11 +25,11 @@ import { PostService } from '../../shared/services/post.service';
 })
 export class PostsIdComponent {
   @Input() postId: string = '';
-  postService = inject(PostService);
+  #postService = inject(PostService);
 
   postDetailsQuery = injectQuery(() => ({
-    queryKey: ['posts', 'details', this.postId],
+    queryKey: ['PostService', 'getPostById', this.postId],
     queryFn: () =>
-      lastValueFrom(this.postService.getPostById(Number(this.postId))),
+      lastValueFrom(this.#postService.getPostById(Number(this.postId))),
   }));
 }

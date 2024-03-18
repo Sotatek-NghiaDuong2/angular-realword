@@ -19,11 +19,11 @@ export class PostService {
     return this.http.delete(`posts/${id}`);
   }
 
-  createPost(data: DataCreatePost) {
+  createPost(data: DataPostBody) {
     return this.http.post('posts', data);
   }
 
-  updatePost(id: number, data: DataCreatePost) {
+  updatePost(id: number, data: DataPostBody) {
     return this.http.put(`posts/${id}`, data);
   }
 }
@@ -34,7 +34,6 @@ export interface Post {
   id: number;
   published?: boolean;
   title: string;
-  isDeleting?: boolean;
 }
 
-export interface DataCreatePost extends Omit<Post, 'id'> {}
+export interface DataPostBody extends Omit<Post, 'id'> {}

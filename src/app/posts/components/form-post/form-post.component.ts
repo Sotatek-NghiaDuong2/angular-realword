@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
-import { DataCreatePost } from '../../../../shared/services/post.service';
+import { DataPostBody } from '../../../../shared/services/post.service';
 
 @Component({
   selector: 'app-form-post',
@@ -32,17 +32,17 @@ import { DataCreatePost } from '../../../../shared/services/post.service';
   styles: ``,
 })
 export class FormPostComponent implements OnChanges {
-  @Output() submit = new EventEmitter<DataCreatePost>();
-  @Input() defaultValues: DataCreatePost = {
+  @Output() submit = new EventEmitter<DataPostBody>();
+  @Input() defaultValues: DataPostBody = {
     title: '',
     content: '',
   };
   @Input() buttonSubmitLabel: string = 'Create';
-  @Input() status?: any;
+  @Input() status?: string;
 
-  formBuilder = inject(FormBuilder);
+  #formBuilder = inject(FormBuilder);
 
-  formCreate = this.formBuilder.nonNullable.group({
+  formCreate = this.#formBuilder.nonNullable.group({
     title: this.defaultValues.title,
     content: this.defaultValues.content,
   });
